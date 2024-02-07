@@ -13,11 +13,13 @@ bleeding edge version without uninstalling the stable version of JDK, this utili
 - decompression zip and copy jvms.exe to a path what you want
 - run cmd or powershell as administrator
 - cd to folder where `jvms.exe` in
-- run `jvms.exe init`
-- Setup is complete ! Switch and install jdk see [Usage](#usage) Section
+- list all installed jdk:  `jvms.exe ls`
+- set new jdk version env path :  `jvms.exe switch $jdkVersion`
 
-![](images/powershell_2017-07-23_00-38-13.png)
+### Default Config
 
+1. The jdk download and installation directories are managed by config file: `C:\Users\$userName\AppData\Roaming\jvms\jvms.json`。
+2. the default path for download and installation is: `C:\Program Files\Java\`
 
 ### Usage
 ```shell
