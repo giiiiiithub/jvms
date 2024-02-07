@@ -38,7 +38,7 @@ type Config struct {
 
 var config = Config{
 	JavaHome:          "",
-	CurrentJDKVersion: defaultOriginalpath,
+	CurrentJDKVersion: os.Getenv("JAVA_HOME")[strings.LastIndex(os.Getenv("JAVA_HOME"), "\\")+1:],
 	Store:             jdkInstallParentDir,
 	Download:          jdkFileDownloadDir,
 	Originalpath:      defaultOriginalpath,
@@ -357,6 +357,13 @@ func getJdkVersions() ([]JdkVersion, error) {
 }
 
 func startup(c *cli.Context) error {
+	store.Register(
+		"json",
+		func(v interface{}) ([]byte, error) {
+			return json.MarshalIndent(v, "", "    ")
+		},
+		json.Unmarshal)
+
 	store.Init("jvms")
 	if err := store.Load(configFileName, &config); err != nil {
 		return errors.New("failed to load the config:" + err.Error())
